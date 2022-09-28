@@ -12,7 +12,7 @@ def main(stdscr):
 
     BLUE_AND_YELLOW = curses.color_pair(1)
     GREEN_AND_BLACK = curses.color_pair(2)
-    ORANGE_AND_WHITE = curses.color_pair(3)
+    RED_AND_WHITE = curses.color_pair(3)
 
 
 
@@ -48,15 +48,27 @@ def main(stdscr):
         stdscr.refresh()
         """
 
-    win = curses.newwin(3, 18, 2, 2)
-    box = Textbox(win)
-    rectangle(stdscr, 1, 1, 5, 20)
-    stdscr.refresh()
-    box.edit()
-    text = box.gather().strip().replace("\n", "")
-    stdscr.addstr(10, 40, text)
-    stdscr.getch()
+    curses.echo()
 
+    stdscr.attron(RED_AND_WHITE)
+    stdscr.border()
+    stdscr.attroff(RED_AND_WHITE)
+
+    stdscr.attron(GREEN_AND_BLACK)
+    rectangle(stdscr, 1, 1, 5, 20)
+    stdscr.attroff(GREEN_AND_BLACK)
+
+    stdscr.addstr(3, 3, "Hello Paul!")
+    stdscr.move(10, 50)
+
+    stdscr.refresh()
+
+    while True:
+        key = stdscr.getkey()
+        if key == "q":
+            break
+
+    stdscr.getch()
 
 
 wrapper(main)
